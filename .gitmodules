@@ -1,0 +1,6 @@
+[submodule "Dapper.SimpleSave"]
+	path = Dapper.SimpleSave
+	url = https://github.com/belpyro/Dapper.SimpleSave
+[submodule "src/Dapper.SimpleSave"]
+	path = src/Dapper.SimpleSave
+	url = https://github.com/belpyro/Dapper.SimpleSave
