@@ -1,4 +1,6 @@
-﻿namespace Dapper.SimpleLoad
+﻿using Dapper.SimpleSave;
+
+namespace Dapper.SimpleLoad
 {
     /// <summary>
     /// Defines configuration settings which alter SimpleLoad's behaviour. Currently all
@@ -7,22 +9,16 @@
     /// </summary>
     public static class SimpleLoadConfiguration
     {
-        private static int _rowCountWarningEmitThreshold;
-        private static int _rowCountErrorEmitThreshold;
-        private static int _rowCountExceptionThrowThreshold;
-
-        private static long _queryDurationMillisWarningEmitThreshold;
-        private static long _queryDurationMillisErrorEmitThreshold;
-        private static long _queryDurationMillisExceptionThrowThreshold;
+        private static ISimpleConfiguration _configuration;
 
         static SimpleLoadConfiguration()
         {
-            RowCountWarningEmitThreshold = 1000;
-            RowCountErrorEmitThreshold = 2000;
-            RowCountExceptionThrowThreshold = 0;    //  I.e., don't ever thrown an exception
-            QueryDurationMillisWarningEmitThreshold = 2000;
-            QueryDurationMillisErrorEmitThreshold = 4000;
-            QueryDurationMillisExceptionThrowThreshold = 0;     //  I.e., don't ever thrown an exception
+            _configuration = new BasicConfiguration();
+        }
+
+        public static void SetConfiguration(ISimpleConfiguration configuration)
+        {
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -31,11 +27,11 @@
         /// </summary>
         public static int RowCountWarningEmitThreshold
         {
-            get { return _rowCountWarningEmitThreshold; }
+            get { return _configuration.RowCountWarningEmitThreshold; }
             set
             {
                 value.IsGreaterThanOrEqualTo(nameof(RowCountWarningEmitThreshold), 0);
-                _rowCountWarningEmitThreshold = value;
+                _configuration.RowCountWarningEmitThreshold = value;
             }
         }
 
@@ -45,11 +41,11 @@
         /// </summary>
         public static int RowCountErrorEmitThreshold
         {
-            get { return _rowCountErrorEmitThreshold; }
+            get { return _configuration.RowCountErrorEmitThreshold; }
             set
             {
                 value.IsGreaterThanOrEqualTo(nameof(RowCountErrorEmitThreshold), 0);
-                _rowCountErrorEmitThreshold = value;
+                _configuration.RowCountErrorEmitThreshold = value;
             }
         }
 
@@ -59,11 +55,11 @@
         /// </summary>
         public static int RowCountExceptionThrowThreshold
         {
-            get { return _rowCountExceptionThrowThreshold; }
+            get { return _configuration.RowCountExceptionThrowThreshold; }
             set
             {
                 value.IsGreaterThanOrEqualTo(nameof(RowCountExceptionThrowThreshold), 0);
-                _rowCountExceptionThrowThreshold = value;
+                _configuration.RowCountExceptionThrowThreshold = value;
             }
         }
 
@@ -73,11 +69,11 @@
         /// </summary>
         public static long QueryDurationMillisWarningEmitThreshold
         {
-            get { return _queryDurationMillisWarningEmitThreshold; }
+            get { return _configuration.QueryDurationMillisWarningEmitThreshold; }
             set
             {
                 value.IsGreaterThanOrEqualTo(nameof(QueryDurationMillisWarningEmitThreshold), 0);
-                _queryDurationMillisWarningEmitThreshold = value;
+                _configuration.QueryDurationMillisWarningEmitThreshold = value;
             }
         }
 
@@ -87,11 +83,11 @@
         /// </summary>
         public static long QueryDurationMillisErrorEmitThreshold
         {
-            get { return _queryDurationMillisErrorEmitThreshold; }
+            get { return _configuration.QueryDurationMillisErrorEmitThreshold; }
             set
             {
                 value.IsGreaterThanOrEqualTo(nameof(QueryDurationMillisErrorEmitThreshold), 0);
-                _queryDurationMillisErrorEmitThreshold = value;
+                _configuration.QueryDurationMillisErrorEmitThreshold = value;
             }
         }
 
@@ -101,11 +97,11 @@
         /// </summary>
         public static long QueryDurationMillisExceptionThrowThreshold
         {
-            get { return _queryDurationMillisExceptionThrowThreshold; }
+            get { return _configuration.QueryDurationMillisExceptionThrowThreshold; }
             set
             {
                 value.IsGreaterThanOrEqualTo(nameof(QueryDurationMillisExceptionThrowThreshold), 0);
-                _queryDurationMillisExceptionThrowThreshold = value;
+                _configuration.QueryDurationMillisExceptionThrowThreshold = value;
             }
         }
 
@@ -114,13 +110,33 @@
         /// default and should not be switched on unless you are certain your query parameters
         /// do not contain sensitive information.
         /// </summary>
-        public static bool IncludeParametersInLog { get; set; }
+        public static bool IncludeParametersInLog
+        {
+            get { return _configuration.IncludeParametersInLog; }
+            set { _configuration.IncludeParametersInLog = value; }
+        }
 
         /// <summary>
         /// Indicates whether or not query parameters should be included in exceptions. Off by
         /// default and should not be switched on unless you are certain your query parameters
         /// do not contain sensitive information.
         /// </summary>
-        public static bool IncludeParametersInException { get; set; }
+        public static bool IncludeParametersInException
+        {
+            get { return _configuration.IncludeParametersInException; }
+            set { _configuration.IncludeParametersInException = value; }
+        }
+
+        public static bool AutoGenerateTableName
+        {
+            get { return _configuration.AutoGenerateTableName; }
+            set { _configuration.AutoGenerateTableName = value; }
+        }
+
+        public static bool PluralizeTableName
+        {
+            get { return _configuration.PluralizeTableName; }
+            set { _configuration.PluralizeTableName = value; }
+        }
     }
 }

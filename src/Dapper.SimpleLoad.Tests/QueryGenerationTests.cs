@@ -12,7 +12,7 @@ namespace Dapper.SimpleLoad.Tests
         [Test]
         public void generates_correct_query_for_complex_types()
         {
-            //var logger = 
+            //var logger =
             //SimpleSaveExtensions.Logger = //    TODO
 
             try
@@ -230,7 +230,7 @@ namespace Dapper.SimpleLoad.Tests
                         .AutoQuery
                         <ProSupportRule>(new [] { "r" },
                         "r.[IsForFirstData] = @isForFirstData",
-                        new 
+                        new
                         {
                             isForFirstData = false,
                             isForGlobalPayments = false,

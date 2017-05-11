@@ -1,14 +1,10 @@
-﻿using Dapper;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Data.SqlTypes;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Dapper.SimpleLoad.Impl;
 using Dapper.SimpleSave;
 using log4net;
