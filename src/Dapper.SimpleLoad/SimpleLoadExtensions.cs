@@ -14,9 +14,9 @@ namespace Dapper.SimpleLoad
 {
     public static class SimpleLoadExtensions
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (SimpleLoadExtensions));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(SimpleLoadExtensions));
 
-        private class DontMap {}
+        private class DontMap { }
 
         public static IList<T1> CustomQuery<T1>(
             this IDbConnection connection, string completeParameterisedSqlQuery, object parameters)
@@ -65,7 +65,7 @@ namespace Dapper.SimpleLoad
         {
             return CustomQuery<T1>(
                 connection,
-                new []
+                new[]
                 {
                     typeof(T2),
                     typeof(T3),
@@ -80,7 +80,7 @@ namespace Dapper.SimpleLoad
         }
 
         public static IList<T1> CustomQuery<T1>(
-            this IDbConnection connection, Type [] additionalTypes, string completeParameterisedSqlQuery, object parameters, string splitOn = null)
+            this IDbConnection connection, Type[] additionalTypes, string completeParameterisedSqlQuery, object parameters, string splitOn = null)
         {
             var types = BuildAndCheckTypeList<T1>(additionalTypes);
             var map = new TypePropertyMap(SimpleSaveExtensions.MetadataCache, types);
@@ -163,49 +163,49 @@ namespace Dapper.SimpleLoad
         }
 
         public static IList<T1> AutoQuery<T1>(
-            this IDbConnection connection, string [] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
+            this IDbConnection connection, string[] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
         {
             return AutoQuery<T1, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap>(connection, tableAliases, whereClauseExpression, parameters, desiredNumberOfResults);
         }
 
         public static IList<T1> AutoQuery<T1, T2>(
-            this IDbConnection connection, string [] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
+            this IDbConnection connection, string[] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
         {
             return AutoQuery<T1, T2, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap>(connection, tableAliases, whereClauseExpression, parameters, desiredNumberOfResults);
         }
 
         public static IList<T1> AutoQuery<T1, T2, T3>(
-            this IDbConnection connection, string [] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
+            this IDbConnection connection, string[] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
         {
             return AutoQuery<T1, T2, T3, DontMap, DontMap, DontMap, DontMap, DontMap>(connection, tableAliases, whereClauseExpression, parameters, desiredNumberOfResults);
         }
 
         public static IList<T1> AutoQuery<T1, T2, T3, T4>(
-            this IDbConnection connection, string [] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
+            this IDbConnection connection, string[] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
         {
             return AutoQuery<T1, T2, T3, T4, DontMap, DontMap, DontMap, DontMap>(connection, tableAliases, whereClauseExpression, parameters, desiredNumberOfResults);
         }
 
         public static IList<T1> AutoQuery<T1, T2, T3, T4, T5>(
-            this IDbConnection connection, string [] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
+            this IDbConnection connection, string[] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
         {
             return AutoQuery<T1, T2, T3, T4, T5, DontMap, DontMap, DontMap>(connection, tableAliases, whereClauseExpression, parameters, desiredNumberOfResults);
         }
 
         public static IList<T1> AutoQuery<T1, T2, T3, T4, T5, T6>(
-            this IDbConnection connection, string [] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
+            this IDbConnection connection, string[] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
         {
             return AutoQuery<T1, T2, T3, T4, T5, T6, DontMap, DontMap>(connection, tableAliases, whereClauseExpression, parameters, desiredNumberOfResults);
         }
 
         public static IList<T1> AutoQuery<T1, T2, T3, T4, T5, T6, T7>(
-            this IDbConnection connection, string [] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
+            this IDbConnection connection, string[] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
         {
             return AutoQuery<T1, T2, T3, T4, T5, T6, T7, DontMap>(connection, tableAliases, whereClauseExpression, parameters, desiredNumberOfResults);
         }
 
         public static IList<T1> AutoQuery<T1, T2, T3, T4, T5, T6, T7, T8>(
-            this IDbConnection connection, string [] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
+            this IDbConnection connection, string[] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
         {
             return AutoQuery<T1>(
                 connection,
@@ -226,18 +226,17 @@ namespace Dapper.SimpleLoad
         }
 
         public static IList<T1> AutoQuery<T1>(
-            this IDbConnection connection, Type[] additionalTypes, string [] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
+            this IDbConnection connection, Type[] additionalTypes, string[] tableAliases, string whereClauseExpression, object parameters, int desiredNumberOfResults = 0)
         {
             var types = BuildAndCheckTypeList<T1>(additionalTypes);
             CheckTableAliases(types, tableAliases, whereClauseExpression);
             return AutoQuery<T1>(connection, types, tableAliases, whereClauseExpression, parameters, desiredNumberOfResults);
         }
 
-        private static IList<Type> BuildAndCheckTypeList<T1>(Type [] additionalTypes)
+        private static IList<Type> BuildAndCheckTypeList<T1>(Type[] additionalTypes)
         {
-            var types = new List<Type>();
-            types.Add(typeof(T1));
-            types.AddRange(additionalTypes.TakeWhile(type => type != typeof (DontMap)));
+            var types = new List<Type> { typeof(T1) };
+            types.AddRange(additionalTypes.TakeWhile(type => type != typeof(DontMap)));
             CheckTypes(types);
             return types;
         }
@@ -262,7 +261,7 @@ namespace Dapper.SimpleLoad
 
                 QueryExecutionLogger.Executing(query, parameters);
 
-                long    startTime = DateTime.Now.Ticks,
+                long startTime = DateTime.Now.Ticks,
                         timeToFirstResult = -1;
 
                 connection.Query(
@@ -297,7 +296,7 @@ namespace Dapper.SimpleLoad
                                 alreadyEncountered[primaryKey] = current;
                                 if (index == 0)
                                 {
-                                    results.Add((T1) current);
+                                    results.Add((T1)current);
                                 }
                             }
 
@@ -330,7 +329,7 @@ namespace Dapper.SimpleLoad
                                         var genericArgs = propertyMetadata.Prop.PropertyType.GenericTypeArguments;
                                         if (genericArgs != null && genericArgs.Length > 0)
                                         {
-                                            var genericList = typeof (List<>);
+                                            var genericList = typeof(List<>);
                                             var instantiable = genericList.MakeGenericType(genericArgs);
                                             collection = Activator.CreateInstance(instantiable);
                                             addMethod = instantiable.GetMethod("Add");
@@ -338,7 +337,7 @@ namespace Dapper.SimpleLoad
                                         else
                                         {
                                             collection = new ArrayList();
-                                            addMethod = typeof (ArrayList).GetMethod("Add");
+                                            addMethod = typeof(ArrayList).GetMethod("Add");
                                         }
                                         propertyMetadata.Prop.SetValue(targetObject, collection);
                                     }
@@ -369,7 +368,7 @@ namespace Dapper.SimpleLoad
 
                                     if (!seenBefore.Contains(current))
                                     {
-                                        addMethod.Invoke(collection, new[] {current});
+                                        addMethod.Invoke(collection, new[] { current });
                                         seenBefore.Add(current);
                                     }
                                 }

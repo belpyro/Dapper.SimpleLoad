@@ -1,7 +1,7 @@
 ﻿using System;
 using Dapper.SimpleSave.Attributes;
 
-namespace Dapper.SimpleSave.Test
+namespace Dapper.SimpleSave.Test.Dto
 {
     [Table("[gen].[ADDRESS_MST]")]
     public class AddressDto
@@ -30,10 +30,12 @@ namespace Dapper.SimpleSave.Test
         //public int CountyKey { get; set; }
 
         public int CountryKey { get; set; }
+
         public GenAddressTypesEnum AddressTypeKey { get; set; }
+
         public DateTimeOffset? AddressConfirmedDate { get; set; }
 
-
+        public bool IsDeleted { get; set; }
     }
 
     public class CountyDto

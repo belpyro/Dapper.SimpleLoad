@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using Dapper.SimpleSave;
 using Dapper.SimpleSave.Attributes;
 using Dapper.SimpleSave.Metadata;
 

@@ -1,37 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dapper.SimpleSave;
 using Dapper.SimpleSave.Attributes;
-using Dapper.SimpleSave.Impl;
+using Dapper.SimpleSave.Configuration;
 using Dapper.SimpleSave.Metadata;
 
 namespace Dapper.SimpleLoad.Impl
 {
-    public class TypePropertyMapEntry
+    public class TypePropertyMapEntryExt
     {
-        private IDictionary<Type, PropertyMetadata> _typesToPropertyMetadata = new Dictionary<Type, PropertyMetadata>();
-
-        public TypePropertyMapEntry(
-            DtoMetadataCache cache,
+        public TypePropertyMapEntryExt(
             Type type,
             string alias,
             int index,
             ISet<Type> typesWeCareAbout)
         {
             Type = type;
-            Metadata = cache.GetMetadataFor(type);
+            Metadata = SimpleSaveConfiguration.GetEntityConfig(type);
             Alias = alias;
             Index = index;
-            foreach (var property in Metadata.AllProperties)
+            foreach (var property in Metadata.Properties.Values.Where(p => !p.IsIgnored))
             {
-                if (property.HasAttribute<SimpleLoadIgnoreAttribute>())
-                {
-                    continue;
-                }
-
                 var key = property.Prop.PropertyType;
                 if (property.IsEnumerable)
                 {
@@ -39,7 +28,7 @@ namespace Dapper.SimpleLoad.Impl
                     if (genericArguments == null
                         || genericArguments.Length != 1
                         || !typesWeCareAbout.Contains(genericArguments[0])
-                        || !HasCardinalityAttribute(property))
+                        || !property.HasRelationship)
                     {
                         continue;
                     }
@@ -72,36 +61,19 @@ namespace Dapper.SimpleLoad.Impl
                         continue;
                     }
                 }
-                else if (!HasCardinalityAttribute(property) && !property.IsEnum)
+                else if (!property.HasRelationship && !property.IsEnum)
                 {
                     continue;
                 }
-
-                _typesToPropertyMetadata[key] = property;
             }
-        }
-
-        private bool HasCardinalityAttribute(PropertyMetadata propertyMetadata)
-        {
-            return propertyMetadata.IsOneToManyRelationship
-                || propertyMetadata.IsManyToOneRelationship
-                || propertyMetadata.IsOneToOneRelationship
-                || propertyMetadata.IsManyToManyRelationship;
         }
 
         public Type Type { get; }
 
-        public DtoMetadata Metadata { get; }
+        public IConfiguration Metadata { get; }
 
         public string Alias { get; }
 
         public int Index { get; }
-
-        public PropertyMetadata GetPropertyMetadataFor(Type propertyType)
-        {
-            PropertyMetadata match;
-            _typesToPropertyMetadata.TryGetValue(propertyType, out match);
-            return match;
-        }
     }
 }
