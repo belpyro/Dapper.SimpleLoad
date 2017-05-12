@@ -1,8 +1,7 @@
 ﻿using System;
-using Dapper.SimpleSave;
 using Dapper.SimpleSave.Attributes;
 
-namespace Dapper.SimpleLoad.Tests.RealisticDtos
+namespace Dapper.SimpleSave.Test
 {
     [Table("[gen].[ADDRESS_MST]")]
     public class AddressDto
@@ -21,12 +20,12 @@ namespace Dapper.SimpleLoad.Tests.RealisticDtos
         [ManyToOne("PostCodeKey")]
         [ForeignKeyReference(typeof(PostCodeDetailsDto))]
         [Column("PostCodeKey")]
-        public PostCodeDetailsDto PostCodeDetails { get; set; }
+        public string PostCodeDetails { get; set; }
 
         [ManyToOne("CountyKey")]
         [ForeignKeyReference(typeof(CountyDto))]
         [Column("CountyKey")]
-        public CountyDto County { get; set; }
+        public string County { get; set; }
 
         //public int CountyKey { get; set; }
 
@@ -34,6 +33,20 @@ namespace Dapper.SimpleLoad.Tests.RealisticDtos
         public GenAddressTypesEnum AddressTypeKey { get; set; }
         public DateTimeOffset? AddressConfirmedDate { get; set; }
 
-        
+
+    }
+
+    public class CountyDto
+    {
+        public int Id { get; set; }
+
+    }
+
+    public class PostCodeDetailsDto
+    {
+    }
+
+    public enum GenAddressTypesEnum
+    {
     }
 }

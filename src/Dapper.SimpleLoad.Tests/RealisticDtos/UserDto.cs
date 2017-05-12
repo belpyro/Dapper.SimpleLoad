@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Dapper.SimpleSave;
+using Dapper.SimpleSave.Attributes;
 using Newtonsoft.Json;
 
 namespace Dapper.SimpleLoad.Tests.RealisticDtos

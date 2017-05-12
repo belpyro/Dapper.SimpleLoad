@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Dapper.SimpleSave;
+using Dapper.SimpleSave.Attributes;
 
 namespace Dapper.SimpleLoad.Tests.RealisticDtos
 {

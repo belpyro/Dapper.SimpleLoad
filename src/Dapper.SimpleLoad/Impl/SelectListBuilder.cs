@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text;
 using Dapper.SimpleSave;
+using Dapper.SimpleSave.Attributes;
+using Dapper.SimpleSave.Metadata;
 
 namespace Dapper.SimpleLoad.Impl
 {

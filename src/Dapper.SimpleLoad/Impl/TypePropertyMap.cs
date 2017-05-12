@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper.SimpleSave;
+using Dapper.SimpleSave.Metadata;
 
 namespace Dapper.SimpleLoad.Impl
 {

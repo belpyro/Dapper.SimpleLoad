@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using Dapper.SimpleLoad.Impl;
 using Dapper.SimpleSave;
+using Dapper.SimpleSave.Attributes;
 using log4net;
 
 namespace Dapper.SimpleLoad

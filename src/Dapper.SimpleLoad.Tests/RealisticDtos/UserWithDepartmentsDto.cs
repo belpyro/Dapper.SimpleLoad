@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Dapper.SimpleSave;
+using Dapper.SimpleSave.Attributes;
 using Newtonsoft.Json;
 
 namespace Dapper.SimpleLoad.Tests.RealisticDtos

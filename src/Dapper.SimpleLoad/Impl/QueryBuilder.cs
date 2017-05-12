@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using Dapper.SimpleSave;
+using Dapper.SimpleSave.Attributes;
+using Dapper.SimpleSave.Metadata;
 
 namespace Dapper.SimpleLoad.Impl
 {
@@ -58,7 +60,7 @@ namespace Dapper.SimpleLoad.Impl
 
                 if (index == 0)
                 {
-                    var table = metadata.GetAttribute<TableAttribute>();
+                    var table = metadata.TableName;// GetAttribute<TableAttribute>();
 
                     fromAndJoinsBuff.Append("FROM ");
                     AppendTableNameAndAlias(fromAndJoinsBuff, table, alias);

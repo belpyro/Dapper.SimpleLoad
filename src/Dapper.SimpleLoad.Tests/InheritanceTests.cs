@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using Dapper.SimpleSave;
+using Dapper.SimpleSave.Attributes;
 using NUnit.Framework;
 
 namespace Dapper.SimpleLoad.Tests

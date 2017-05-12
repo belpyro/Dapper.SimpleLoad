@@ -1,4 +1,5 @@
 ﻿using Dapper.SimpleSave;
+using Dapper.SimpleSave.Configuration;
 
 namespace Dapper.SimpleLoad
 {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper.SimpleSave;
+using Dapper.SimpleSave.Attributes;
 using Newtonsoft.Json;
 
 namespace Dapper.SimpleLoad.Tests.RealisticDtos
